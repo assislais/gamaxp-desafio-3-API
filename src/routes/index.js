@@ -5,6 +5,8 @@ const psicologoController = require("../controllers/psicologoController.js");
 const pacienteController = require("../controllers/pacienteController.js");
 const atendimentoController = require("../controllers/atendimentoController.js");
 
+const pacientesValidation = require("../validations/pacientes");
+
 routes
     .get("/psicologos", psicologoController.listar)
     .get("/psicologos/:id", psicologoController.buscarPorId)
@@ -15,7 +17,7 @@ routes
 routes
     .get("/pacientes", pacienteController.listar)
     .get("/pacientes/:id", pacienteController.buscarPorId)
-    .post("/pacientes", pacienteController.criar)
+    .post("/pacientes", pacientesValidation, pacienteController.criar)
     .put("/pacientes/:id", pacienteController.atualizar)
     .delete("/pacientes/:id", pacienteController.excluir);
 
