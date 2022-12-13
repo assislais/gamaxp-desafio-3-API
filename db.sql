@@ -8,8 +8,8 @@ CREATE TABLE psicologos (
     apresentacao VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(128) NOT NULL,
-    createdAt TIMESTAMP NOT NULL,
-    updatedAt TIMESTAMP NOT NULL
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE pacientes (
@@ -17,8 +17,8 @@ CREATE TABLE pacientes (
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     idade DATE NOT NULL,
-    createdAt TIMESTAMP NOT NULL,
-    updatedAt TIMESTAMP NOT NULL
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE atendimentos (
@@ -27,8 +27,8 @@ CREATE TABLE atendimentos (
     psicologo_id INT NOT NULL,
     observacao TEXT NOT NULL,
     data_atendimento TIMESTAMP NOT NULL,
-    createdAt TIMESTAMP NOT NULL,
-    updatedAt TIMESTAMP NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
     CONSTRAINT fk_paciente FOREIGN KEY (paciente_id) REFERENCES pacientes (id),
     CONSTRAINT fk_psicologo FOREIGN KEY (psicologo_id) REFERENCES psicologos (id)
 ) ENGINE = InnoDB;
