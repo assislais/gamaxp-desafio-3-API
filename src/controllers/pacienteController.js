@@ -1,22 +1,96 @@
+const {Paciente} = require("../models");
+
 const pacienteController = {
     async listar(req, res){
-        res.status(200).json("paciente - LISTAR");
+        try {
+            const pacientes = await Paciente.findAll();
+            return res.status(200).json(pacientes);
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }        
     },
 
     async buscarPorId(req, res){
-        res.status(200).json("paciente - Buscar Por Id");
+        try {
+            const {id} = req.params;
+
+            const paciente = await Paciente.findByPk(id);
+
+            if(!paciente){
+                return res.status(404).json("Id não encontrado.");
+            }
+
+            return res.status(200).json(paciente);
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }  
     },
 
     async criar(req, res){
-        res.status(201).json("paciente - CRIAR");
+        try {
+            const {nome, idade, email} = req.body;
+
+            const paciente = await Paciente.findOne({ where: { email } });
+
+            if(paciente){
+                return res.status(400).json({message: "Email já cadastrado"});
+            }
+
+            const novoPaciente = await Paciente.create({
+                nome,
+                idade,
+                email
+            });
+
+            return res.status(201).json(novoPaciente);
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }  
     },
 
     async atualizar(req, res){
-        res.status(200).json("paciente - ATUALIZAR");
+        try {
+            const {id} = req.params;
+            const {nome, idade, email} = req.body;
+
+            const paciente = await Paciente.findByPk(id);
+
+            if(!paciente){
+                return res.status(404).json("Id não encontrado.");
+            }
+
+            await Paciente.update({
+                nome,
+                idade,
+                email
+            }, {where: {id}});
+
+            const pacienteAtualizado = await Paciente.findByPk(id);
+
+            return res.status(200).json(pacienteAtualizado);
+        } catch (error) {
+           return res.status(500).json("Erro ao processar...");
+        }  
     },
 
     async excluir(req, res){
-        res.status(204).json("paciente - EXCLUIR");
+        try {
+            const {id} = req.params;
+
+            const paciente = await Paciente.findByPk(id);
+
+            if(!paciente){
+                return res.status(404).json("Id não encontrado.");
+            }
+
+            await await Paciente.destroy({
+                where: {id}
+            });
+
+            return res.status(204).json();
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }
     },
 }
 
