@@ -83,7 +83,7 @@ const pacienteController = {
                 return res.status(404).json("Id não encontrado.");
             }
 
-            await await Paciente.destroy({
+            await Paciente.destroy({
                 where: {id}
             });
 
