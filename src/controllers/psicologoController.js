@@ -101,6 +101,15 @@ const psicologoController = {
             return res.status(500).json("Erro ao processar...");
         }      
     },
+
+    async contar(req, res){
+        try {
+            const quantidade = await Psicologos.count();
+            res.status(200).json(quantidade);
+        } catch (error) {
+            res.status(500).json("Erro ao processar...");
+        }     
+    },
 }
 
 module.exports = psicologoController;

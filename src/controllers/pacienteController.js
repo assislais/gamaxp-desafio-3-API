@@ -55,9 +55,7 @@ const pacienteController = {
 
             const paciente = await Paciente.findByPk(id);
 
-            if(!paciente){
-                return res.status(404).json("Id não encontrado.");
-            }
+            
 
             await Paciente.update({
                 nome,
@@ -91,6 +89,15 @@ const pacienteController = {
         } catch (error) {
             return res.status(500).json("Erro ao processar...");
         }
+    },
+
+    async contar(req, res){
+        try {
+            const quantidade = await Paciente.count();
+            res.status(200).json(quantidade);
+        } catch (error) {
+            res.status(500).json("Erro ao processar...");
+        }     
     },
 }
 

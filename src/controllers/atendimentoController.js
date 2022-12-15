@@ -1,4 +1,4 @@
-const { Atendimentos } = require("../models")
+const { Atendimentos, Psicologos } = require("../models")
 
 const atendimentoController = {
     async listar(req, res){
@@ -41,7 +41,27 @@ const atendimentoController = {
         }catch(error){
             res.status(500).json("Erro ao processar...")
         }
-    }
+    },
+
+    async contar(req, res){
+        try {
+            const quantidade = await Atendimentos.count();
+            res.status(200).json(quantidade);
+        } catch (error) {
+            res.status(500).json("Erro ao processar...");
+        }     
+    },
+
+    async media(req, res){
+        try {
+            const atendimentoQtd = await Atendimentos.count();
+            const psicologoQtd = await Psicologos.count();
+            const media = atendimentoQtd / psicologoQtd;
+            res.status(200).json(media);
+        } catch (error) {
+            res.status(500).json("Erro ao processar...");
+        }     
+    },
 }
 
 module.exports = atendimentoController;
