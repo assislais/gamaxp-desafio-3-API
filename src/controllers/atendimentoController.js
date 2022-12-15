@@ -1,23 +1,47 @@
+const { Atendimentos } = require("../models")
+
 const atendimentoController = {
     async listar(req, res){
-        res.status(200).json("atendimento - LISTAR");
+        try{
+            const listaDeAtendimentos = await Atendimentos.findAll();
+            return res.status(200).json(listaDeAtendimentos);
+        }catch (error){
+            return res.status(500).json("Erro ao processar...");
+        }
     },
 
     async buscarPorId(req, res){
-        res.status(200).json("atendimento - Buscar Por Id");
+        try{
+            const {id}=req.params
+            const atendimento = await Atendimentos.findOne({ 
+                where: { id }
+            });
+            if (!atendimento) {
+                return res.status(404).json("Id não encontrado")
+            }
+            return res.status(200).json(atendimento);
+        }catch(error){
+            return res.status(500).json("Erro ao processar...");
+        }
+        
     },
 
     async criar(req, res){
-        res.status(201).json("atendimento - CRIAR");
-    },
+        try{
+            const { paciente_id, data_atendimento, observacao} = req.body
 
-    async atualizar(req, res){
-        res.status(200).json("atendimento - ATUALIZAR");
-    },
+            const psicologo_id = req.auth.id
+            
 
-    async excluir(req, res){
-        res.status(204).json("atendimento - EXCLUIR");
-    },
+            const novoAtendimento = await Atendimentos.create({
+                paciente_id,data_atendimento,observacao,psicologo_id
+            })
+
+            res.status(201).json(novoAtendimento);
+        }catch(error){
+            res.status(500).json("Erro ao processar...")
+        }
+    }
 }
 
 module.exports = atendimentoController;

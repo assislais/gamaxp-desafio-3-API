@@ -7,7 +7,9 @@ const atendimentoController = require("../controllers/atendimentoController.js")
 const loginController = require("../controllers/loginController.js");
 
 const pacientesValidation = require("../validations/pacientes");
-const loginValidation = require("../validations/login")
+const loginValidation = require("../validations/login");
+const atendimentoValidation = require("../validations/atendimentos")
+const auth = require("../middlewares/auth");
 
 routes
     .get("/psicologos", psicologoController.listar)
@@ -26,7 +28,7 @@ routes
 routes
     .get("/atendimentos", atendimentoController.listar)
     .get("/atendimentos/:id", atendimentoController.buscarPorId)
-    .post("/atendimentos", atendimentoController.criar);
+    .post("/atendimentos",auth, atendimentoValidation, atendimentoController.criar);
 
 routes
     .post("/login", loginValidation,loginController.login);
