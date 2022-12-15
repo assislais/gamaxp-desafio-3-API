@@ -19,7 +19,6 @@ const psicologoController = {
         try {
             const {id} = req.params;
             const psicologo = await Psicologos.findByPk(id);
-            const senhaCripto = bcrypt.hashSync(req.body.senha, 10);
             
             if(!psicologo){
                 return res.status(404).json("Id não encontrado.");
