@@ -26,7 +26,7 @@ routes
     .get("/pacientes", pacienteController.listar)
     .get("/pacientes/:id", pacienteController.buscarPorId)
     .post("/pacientes", pacientesValidation, pacienteController.criar)
-    .put("/pacientes/:id", pacienteController.atualizar)
+    .put("/pacientes/:id", pacientesValidation, pacienteController.atualizar)
     .delete("/pacientes/:id", pacienteController.excluir);
 
 routes
