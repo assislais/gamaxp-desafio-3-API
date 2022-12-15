@@ -6,11 +6,12 @@ const pacienteController = require("../controllers/pacienteController.js");
 const atendimentoController = require("../controllers/atendimentoController.js");
 
 const pacientesValidation = require("../validations/pacientes");
+const psicologosCreateValidation = require("../validations/psicologos/create");
 
 routes
     .get("/psicologos", psicologoController.listar)
     .get("/psicologos/:id", psicologoController.buscarPorId)
-    .post("/psicologos", psicologoController.criar)
+    .post("/psicologos", psicologosCreateValidation, psicologoController.criar)
     .put("/psicologos/:id", psicologoController.atualizar)
     .delete("/psicologos/:id", psicologoController.excluir);
 

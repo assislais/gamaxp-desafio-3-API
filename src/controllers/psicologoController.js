@@ -1,4 +1,5 @@
 const Psicologos = require("../models/Psicologos");
+const bcrypt = require("bcryptjs");
 
 const psicologoController = {
     async listar(req, res) {
@@ -31,6 +32,8 @@ const psicologoController = {
     async criar(req, res) {
         try {
             const {nome, email, apresentacao, senha} = req.body;
+
+            const novaSenha = bcrypt.hashSync(senha, 10);
         
             const psicologo = await Psicologos.findOne({ where: { email } });
 
@@ -42,7 +45,7 @@ const psicologoController = {
                 nome,
                 email,
                 apresentacao,
-                senha,
+                senha: novaSenha,
             });
 
             return res.status(201).json(novoPsicologo);
