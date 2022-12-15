@@ -1,22 +1,102 @@
+const Psicologos = require("../models/Psicologos");
+const bcrypt = require("bcryptjs");
+
 const psicologoController = {
-    async listar(req, res){
-        res.status(200).json("psicologo - LISTAR");
+    async listar(req, res) {
+        try {
+            const listaPsicologos = await Psicologos.findAll();
+            
+            return res.status(200).json(listaPsicologos);
+
+        } catch (error) {
+            
+            return  res.status(500).json("Erro ao processar...");
+        }             
     },
 
     async buscarPorId(req, res){
-        res.status(200).json("psicologo - Buscar Por Id");
+        try {
+            const {id} = req.params;
+            const psicologo = await Psicologos.findByPk(id);
+            
+            if(!psicologo){
+                return res.status(404).json("Id não encontrado.");
+            }
+            return res.status(200).json(psicologo);
+            
+        } catch (error) {
+            return req.status(500).json("Erro ao processar...");
+            }            
+        },
+
+    async criar(req, res) {
+        try {
+            const {nome, email, apresentacao, senha} = req.body;
+
+            const novaSenha = bcrypt.hashSync(senha, 10);
+        
+            const psicologo = await Psicologos.findOne({ where: { email } });
+
+            if(psicologo){
+                return res.status(400).json({message: "Email já cadastrado."});
+            }
+
+            const novoPsicologo = await Psicologos.create({
+                nome,
+                email,
+                apresentacao,
+                senha: novaSenha,
+            });
+
+            return res.status(201).json(novoPsicologo);
+
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }          
     },
 
-    async criar(req, res){
-        res.status(201).json("psicologo - CRIAR");
-    },
+    async atualizar(req, res) {
+        try {
+            const { id } = req.params;
+            const { nome, email, apresentacao, senha } = req.body;
+            const psicologo = await Psicologos.findByPk(id);
 
-    async atualizar(req, res){
-        res.status(200).json("psicologo - ATUALIZAR");
-    },
+            if(!psicologo){
+                return res.status(404).json("Id não encontrado.");
+            }
+            await Psicologos.update ({
+                nome,
+                email,
+                apresentacao,
+                senha,
+            },
+            { where: { id } });
 
-    async excluir(req, res){
-        res.status(204).json("psicologo - EXCLUIR");
+            const psicologoAtualizado = await Psicologos.findByPk(id);
+            return res.status(200).json(psicologoAtualizado);  
+
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...")
+        }
+    },
+        
+    
+    async excluir(req, res) {
+        try {
+            const { id } = req.params;
+            const psicologo = await Psicologos.findByPk(id);
+
+            if(!psicologo){
+                return res.status(404).json("Id não encontrado.");
+            }
+            await Psicologos.destroy({
+                where: { id } });
+
+            return res.status(204).json();
+
+        } catch (error) {
+            return res.status(500).json("Erro ao processar...");
+        }      
     },
 }
 
