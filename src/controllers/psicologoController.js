@@ -18,8 +18,9 @@ const psicologoController = {
     async buscarPorId(req, res){
         try {
             const {id} = req.params;
-            const psicologo = await Psicologos.findByPk(id);
-            const senhaCripto = bcrypt.hashSync(req.body.senha, 10);
+            const psicologo = await Psicologos.findByPk(id, {
+                attributes: {exclude: ["senha"]}
+            });
             
             if(!psicologo){
                 return res.status(404).json("Id não encontrado.");
@@ -44,8 +45,9 @@ const psicologoController = {
             const novoPsicologo = await Psicologos.create({
                 nome,
                 email,
-                apresentacao,
                 senha: senhaCripto,
+                apresentacao,
+                
             });
 
             return res.status(201).json(novoPsicologo);
@@ -67,8 +69,9 @@ const psicologoController = {
             await Psicologos.update ({
                 nome,
                 email,
-                apresentacao,
                 senha,
+                apresentacao,
+                
             },
             { where: { id } });
 
