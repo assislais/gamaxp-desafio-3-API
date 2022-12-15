@@ -4,8 +4,10 @@ const routes = express.Router();
 const psicologoController = require("../controllers/psicologoController.js");
 const pacienteController = require("../controllers/pacienteController.js");
 const atendimentoController = require("../controllers/atendimentoController.js");
+const loginController = require("../controllers/loginController.js");
 
 const pacientesValidation = require("../validations/pacientes");
+const loginValidation = require("../validations/login")
 
 routes
     .get("/psicologos", psicologoController.listar)
@@ -25,5 +27,8 @@ routes
     .get("/atendimentos", atendimentoController.listar)
     .get("/atendimentos/:id", atendimentoController.buscarPorId)
     .post("/atendimentos", atendimentoController.criar);
+
+routes
+    .post("/login", loginValidation,loginController.login);
 
 module.exports = routes;
