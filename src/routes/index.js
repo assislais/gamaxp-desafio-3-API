@@ -8,16 +8,18 @@ const loginController = require("../controllers/loginController.js");
 
 const pacientesValidation = require("../validations/pacientes");
 const psicologosCreateValidation = require("../validations/psicologos/create");
+const psicologosUpdateValidation = require("../validations/psicologos/update");
 const loginValidation = require("../validations/login");
 const atendimentoValidation = require("../validations/atendimentos");
 
 const auth = require("../middlewares/auth");
 
+
 routes
     .get("/psicologos", psicologoController.listar)
     .get("/psicologos/:id", psicologoController.buscarPorId)
     .post("/psicologos", psicologosCreateValidation, psicologoController.criar)
-    .put("/psicologos/:id", psicologoController.atualizar)
+    .put("/psicologos/:id", psicologosUpdateValidation, psicologoController.atualizar)
     .delete("/psicologos/:id", psicologoController.excluir);
 
 routes
