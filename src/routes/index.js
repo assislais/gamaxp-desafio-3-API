@@ -32,9 +32,15 @@ routes
 routes
     .get("/atendimentos", atendimentoController.listar)
     .get("/atendimentos/:id", atendimentoController.buscarPorId)
-    .post("/atendimentos",auth, atendimentoValidation, atendimentoController.criar);
+    .post("/atendimentos", auth, atendimentoValidation, atendimentoController.criar);
 
 routes
-    .post("/login", loginValidation,loginController.login);
+    .get("/dashboard/numero-paciente", pacienteController.contar)
+    .get("/dashboard/numero-atendimento", atendimentoController.contar)
+    .get("/dashboard/numero-psicologo", psicologoController.contar)
+    .get("/dashboard/media-atendimento", atendimentoController.media)
+
+routes
+    .post("/login", loginValidation, loginController.login);
 
 module.exports = routes;
