@@ -4,9 +4,14 @@ const routes = express.Router();
 const psicologoController = require("../controllers/psicologoController.js");
 const pacienteController = require("../controllers/pacienteController.js");
 const atendimentoController = require("../controllers/atendimentoController.js");
+const loginController = require("../controllers/loginController.js");
 
 const pacientesValidation = require("../validations/pacientes");
 const psicologosCreateValidation = require("../validations/psicologos/create");
+const loginValidation = require("../validations/login");
+const atendimentoValidation = require("../validations/atendimentos");
+
+const auth = require("../middlewares/auth");
 
 routes
     .get("/psicologos", psicologoController.listar)
@@ -25,6 +30,9 @@ routes
 routes
     .get("/atendimentos", atendimentoController.listar)
     .get("/atendimentos/:id", atendimentoController.buscarPorId)
-    .post("/atendimentos", atendimentoController.criar);
+    .post("/atendimentos",auth, atendimentoValidation, atendimentoController.criar);
+
+routes
+    .post("/login", loginValidation,loginController.login);
 
 module.exports = routes;
