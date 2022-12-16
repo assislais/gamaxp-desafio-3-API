@@ -1,6 +1,6 @@
-CREATE DATABASE teste_gama_desafio3;
+CREATE DATABASE gama_desafio3_grupo5;
 
-USE teste_gama_desafio3;
+USE gama_desafio3_grupo5;
 
 CREATE TABLE psicologos (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
