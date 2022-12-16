@@ -30,7 +30,7 @@ const atendimentoController = {
         try{
             const { paciente_id, data_atendimento, observacao} = req.body
 
-            const psicologo_id = req.auth.id
+            const psicologo_id = req.AUTH.id
             
 
             const novoAtendimento = await Atendimentos.create({
