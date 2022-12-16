@@ -15,9 +15,34 @@
 
 <br>
 
-<h2 align="center">:rocket: Demonstração</h2>
+<h2 align="center">:rocket: Instalação</h2>
+
+1 - Faça a instalação das dependências com o comando:
+<pre>npm install</pre>
+
+2 - Execute o script contido em <code>db.sql</code> no seu SGBD
+
+3 - Caso seja necessário altere o arquivo <code>.env</code>
+<pre>
+PORT = 3000
+
+SECRET_KEY = "gamaXP46"
+
+DB_NAME = "gama_desafio3"
+DB_USER = "root"
+DB_PASS = ""
+DB_DIALECT = "mysql"
+DB_HOST = "localhost"
+DB_PORT = 3306
+</pre>
+
+4 - Inicie o servidor com o comando:
+<pre>npm start</pre>
+<br>
+
+<h2 align="center">:page_facing_up: Documentação</h2>
 <div align="center"> 
-  <a href="#">Clique aqui para ver o projeto em execução</a>
+  <a href="https://documenter.getpostman.com/view/10195936/2s8YzXtzLh#f9fa197c-e417-4154-bfa3-b670339e5ef4">Clique aqui para ver a documentação</a>
 </div>
 
 <br>
@@ -48,3 +73,11 @@ Github: https://github.com/DouglasLeal
 Linkedin: https://www.linkedin.com/in/assis-lais/
 
 Github: https://github.com/assislais
+
+---
+
+**Maurício Vieira**
+
+Linkedin: https://www.linkedin.com/in/mauricio-vieira-do-nascimento/
+
+Github: https://github.com/mvdn28

@@ -61,6 +61,7 @@ const psicologoController = {
         try {
             const { id } = req.params;
             const { nome, email, apresentacao, senha } = req.body;
+            const senhaCripto = bcrypt.hashSync(req.body.senha, 10);
             const psicologo = await Psicologos.findByPk(id);
 
             if(!psicologo){
@@ -69,7 +70,7 @@ const psicologoController = {
             await Psicologos.update ({
                 nome,
                 email,
-                senha,
+                senha: senhaCripto,
                 apresentacao,
                 
             },

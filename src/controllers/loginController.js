@@ -1,7 +1,6 @@
 const { Psicologos } = require('../models')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-require('dotenv').config()
 
 const loginController = {
     async login(req,res){

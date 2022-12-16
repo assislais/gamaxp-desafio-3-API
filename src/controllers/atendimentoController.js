@@ -6,6 +6,7 @@ const atendimentoController = {
             const listaDeAtendimentos = await Atendimentos.findAll();
             return res.status(200).json(listaDeAtendimentos);
         }catch (error){
+            console.log(error)
             return res.status(500).json("Erro ao processar...");
         }
     },
@@ -32,7 +33,6 @@ const atendimentoController = {
 
             const psicologo_id = req.AUTH.id
             
-
             const novoAtendimento = await Atendimentos.create({
                 paciente_id,data_atendimento,observacao,psicologo_id
             })
