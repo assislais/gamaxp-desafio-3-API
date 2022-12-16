@@ -55,7 +55,9 @@ const pacienteController = {
 
             const paciente = await Paciente.findByPk(id);
 
-            
+            if(!paciente){
+                return res.status(404).json("Id não encontrado.");
+            }
 
             await Paciente.update({
                 nome,
