@@ -28,7 +28,7 @@ const psicologoController = {
             return res.status(200).json(psicologo);
             
         } catch (error) {
-            return req.status(500).json("Erro ao processar...");
+            return res.status(500).json("Erro ao processar...");
             }            
         },
 
